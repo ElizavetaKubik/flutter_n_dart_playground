@@ -3,9 +3,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+//import 'package:flutter/services.dart';
+//import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
 void main() {
-  runApp(TestApp());
+  runApp(RootApp());
 }
 
 class TestApp extends StatefulWidget {
@@ -80,5 +82,123 @@ class _TestApp extends State<TestApp> {
         }
       });
     });
+  }
+}
+
+class Assets extends StatelessWidget {
+  const Assets({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(fontFamily: 'IndieFlower'),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(),
+        body: Center(
+          // child: Image(
+          //   image:
+          //       AssetImage('assets/images/lake-surrounded-with-mountain.jpg'),
+          // ),
+          child: Text(
+            'Something interesting',
+            style: TextStyle(fontSize: 30),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class RootApp extends StatelessWidget {
+  const RootApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // SystemChrome.setSystemUIOverlayStyle(
+    //     SystemUiOverlayStyle(statusBarColor: Color(0xff9575CD)));
+
+    return MaterialApp(
+      theme: ThemeData(fontFamily: 'IndieFlower'),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color(0xff9575CD),
+          title: Text(
+            'Counter app',
+            style: TextStyle(fontSize: 30),
+          ),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: CounterWidget(),
+        ),
+      ),
+    );
+  }
+}
+
+class CounterWidget extends StatefulWidget {
+  const CounterWidget({super.key});
+
+  @override
+  State<CounterWidget> createState() => _CounterWidgetState();
+}
+
+class _CounterWidgetState extends State<CounterWidget> {
+  late int _value = 5;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Text(
+          'Tap \'-\' to decrement',
+          style: TextStyle(fontSize: 20),
+        ),
+        Container(
+          width: 200,
+          decoration: BoxDecoration(
+            color: Color(0xffD1C4E9),
+            border: Border.all(
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    _value -= 1;
+                  });
+                },
+                icon: Icon(Icons.remove),
+              ),
+              Text("  $_value  ", style: TextStyle(fontSize: 30)),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    _value += 1;
+                  });
+                },
+                icon: Icon(Icons.add),
+              ),
+            ],
+          ),
+        ),
+        Text(
+          'Tap \'+\' to increment',
+          style: TextStyle(fontSize: 20),
+        )
+      ],
+    );
   }
 }
